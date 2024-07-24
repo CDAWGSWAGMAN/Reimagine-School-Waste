@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Ron Swanson Quotes</h1>
+    <nav>
+      <ul>
+        <a href="home.html"><li>Home</li></a>
+        <a href="project.html"><li>Project</li></a>
+        <a href="about.html"><li>About</li></a>
+      </ul>
+    </nav>
+    <div id="about-container">
+      <p>
+        This project provides fans of Parks and Rec easy access to memorable
+        quotes from Ron Swanson.
+      </p>
+      <p>
+        We use the Ron Swanson Quotes API to retrieve quotes and display them in
+        an easy-to-read format.
+      </p>
+      <p>
+        Ron Swanson is an iconic character known for his dry humor and love for
+        meat and woodworking. Our application pays homage to this beloved
+        character.
+      </p>
+    </div>
+    <div id="audio-div">
+      <h2>This site uses audio controls</h2>
+      <h3>Voice commands</h3>
+      <ul id="audio-rules">
+        <li>
+          Navigate to a Different Page
+          <ul>
+            <li>Say: <b>Navigate to &lt;page&gt;</b></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div id="audio-button-container">
+        <button id="on" class="audio-buttons" onclick="audioButton(event)">
+          Turn On Listening
+        </button>
+        <button id="off" class="audio-buttons" onclick="audioButton(event)">
+          Turn Off Listening
+        </button>
+      </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

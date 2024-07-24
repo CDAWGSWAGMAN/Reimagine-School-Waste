@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Ron Swanson Quotes</h1>
+    <nav>
+      <ul>
+        <a href="home.html"><li>Home</li></a>
+        <a href="project.html"><li>Project</li></a>
+        <a href="about.html"><li>About</li></a>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="slider">
+        <div class="slides">
+          <img src="/images/img1.jpeg" alt="Image 1" />
+          <img src="/images/img2.jpeg" alt="Image 2" />
+          <img src="/images/park32.jpeg" alt="Image 3" />
+        </div>
+        <button class="slider-btn" id="prev" onclick="moveSlide(-1)">
+          &#10094;
+        </button>
+        <button class="slider-btn" id="next" onclick="moveSlide(1)">
+          &#10095;
+        </button>
+      </div>
+    </div>
+
+    <div id="audio-div">
+      <h2>This site uses audio controls</h2>
+      <h3>Voice commands</h3>
+      <ul id="audio-rules">
+        <li>
+          Slide Picture Wheel
+          <ul>
+            <li>Say: <b>Slide &lt;left/right&gt;</b></li>
+          </ul>
+        </li>
+        <li>
+          Navigate to a Different Page
+          <ul>
+            <li>Say: <b>Navigate to &lt;page&gt;</b></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div id="audio-button-container">
+        <button id="on" class="audio-buttons" onclick="audioButton(event)">
+          Turn On Listening
+        </button>
+        <button id="off" class="audio-buttons" onclick="audioButton(event)">
+          Turn Off Listening
+        </button>
+      </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
