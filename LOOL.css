@@ -233,3 +233,17 @@ button:hover {
   font-weight: bold;
   color: #4CAF50;
 }
+
+.rectangle {
+  width: 100%;    /* Specify the width of the rectangle */
+  height: 50em;   /* Specify the height of the rectangle */
+  background-color: white; /* Set the background color to green */
+  display: flex;    /* Use flexbox for centering the iframe */
+  justify-content: center; /* Center the iframe horizontally */
+  align-items: center; /* Center the iframe vertically */
+}
+
+.rectangle iframe {
+  width: 80%;       /* Adjust the width of the iframe */
+  height: 80%;      /* Adjust the height of the iframe */
+}
