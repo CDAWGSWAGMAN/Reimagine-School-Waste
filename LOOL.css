@@ -7,7 +7,7 @@ body {
 
 h1 {
   text-align: center;
-  color: #333;
+  color: black;
 }
 
 nav {
@@ -42,7 +42,7 @@ nav li:hover a {
 }
 
 nav .logo img {
-  height: 50px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
   width: auto;  /* Maintain aspect ratio */
 }
 
