@@ -1,5 +1,5 @@
 body {
-  background-color: #1CAC78;
+  background-color: white;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -13,6 +13,9 @@ h1 {
 nav {
   background-color: #4F7942;
   padding: 10px 0; /* Added padding for better spacing */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav ul {
@@ -20,6 +23,7 @@ nav ul {
   margin: 0;
   padding: 0;
   text-align: center;
+  flex-grow: 1;
 }
 
 nav li {
@@ -35,6 +39,11 @@ nav a {
 
 nav li:hover a {
   color: white;
+}
+
+nav .logo img {
+  height: 50px; /* Adjust as needed */
+  width: auto;  /* Maintain aspect ratio */
 }
 
 .container {
@@ -237,7 +246,7 @@ button:hover {
 .rectangle {
   width: 100%;    /* Specify the width of the rectangle */
   height: 50em;   /* Specify the height of the rectangle */
-  background-color: white; /* Set the background color to green */
+  background-color: green; /* Set the background color to green */
   display: flex;    /* Use flexbox for centering the iframe */
   justify-content: center; /* Center the iframe horizontally */
   align-items: center; /* Center the iframe vertically */
