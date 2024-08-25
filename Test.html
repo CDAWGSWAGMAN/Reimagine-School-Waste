@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Lunch Out Of Landfills</title>
     <link
-      rel="stylesheet"
+      rel="stylesheet" href="LOOL.css"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
   </head>
   <body>
-    <section class="hero is-primary is-bold">
+    <!--section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">Data Entry Form</h1>
         </div>
       </div>
-    </section>
+    </section-->
+    <nav>
+        <div class="logo">
+            <img src="images/LOOL.png" alt="LOOL Logo" onclick="window.location.href='LOOL.html';" >
+        </div>
+        <ul>
+            <li><a href="LOOL.html">Home</a></li>
+            <li><a href="How_to.html">How to Recover Food</a></li>
+            <li><a href="data.html">Data</a></li>
+            <li><a href="about1.html">Our Mission</a></li>
+            <li><a href="Test.html">Contact Us</a></li>
+        </ul>
+    </nav>
     <form id="form" class="container m-4 pl-4" method="POST">
       <div class="field">
         <label class="label">First Name</label>
@@ -21,7 +34,7 @@
           <input
             class="input"
             type="text"
-            placeholder="Your First Name"
+            placeholder="Ex: Gunnar"
             name="First Name"
           />
         </div>
@@ -33,7 +46,7 @@
           <input
             class="input"
             type="text"
-            placeholder="Your Last Name"
+            placeholder="Ex: Henderson"
             name="Last Name"
           />
         </div>
@@ -45,7 +58,7 @@
           <input
             class="input"
             type="email"
-            placeholder="Your Email"
+            placeholder="Ex: JohnDoe@gmail.com"
             name="Email"
           />
         </div>
@@ -57,7 +70,7 @@
           <input
             class="input"
             type="grade"
-            placeholder="Your Grade"
+            placeholder="Ex: 10th"
             name="Grade"
           />
         </div>
@@ -69,7 +82,7 @@
           <input
             class="input"
             type="school"
-            placeholder="Your School"
+            placeholder="Ex: Oakdale High School"
             name="School"
           />
         </div>
@@ -81,7 +94,7 @@
           <input
             class="input"
             type="State"
-            placeholder="Your State"
+            placeholder="Ex: MD"
             name="State"
           />
         </div>
@@ -105,12 +118,10 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary" type="submit" id="submit-button">
-            Sign Up
+            Submit
           </button>
         </div>
-        <div class="control">
-          <button class="button is-danger">Cancel</button>
-        </div>
+        
       </div>
     </form>
     <div
@@ -187,5 +198,42 @@
           });
       });
     </script>
+     <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                 <h3>About Us</h3>
+                <p>We are committed to providing top-notch services and solutions to meet your needs. Our team of experts ensures the highest quality and satisfaction.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="LOOL.html">Home</a></li>
+                    <li><a href="How_to.html">How to Recover Food</a></li>
+                    <li><a href="about1.html">Our Mission</a></li>
+                    <li><a href="Test.html">Contact Us</a></li>
+                </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Information</h3>
+            <p><strong>Email:</strong> <a href="mailto:info@example.com">info@example.com</a></p>
+            <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+            <p><strong>Address:</strong> 1234 Elm Street, Suite 567, City, State, ZIP</p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul class="social-media">
+                <li><a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Lunch Out Of Landfills. All rights reserved.</p>
+    </div>
+</div>
+</footer>
   </body>
 </html>
