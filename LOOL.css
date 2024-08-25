@@ -337,3 +337,21 @@ footer {
 .footer-bottom a:hover {
   text-decoration: underline;
 }
+/* Styling for the heading */
+h1 {
+  font-size: 2.5em; /* Larger font size for emphasis */
+  font-weight: bold; /* Make the font bold */
+  color: #2C3E50; /* Darker color for the heading */
+  text-align: center; /* Center align the heading */
+  margin-bottom: 20px; /* Add space below the heading */
+}
+
+/* Styling for the paragraph */
+p {
+  font-size: 1.2em; /* Slightly larger font size for readability */
+  line-height: 1.6; /* Increase line height for better readability */
+  color: #34495E; /* A slightly lighter color for the text */
+  max-width: 800px; /* Limit the width for better text flow */
+  margin: 0 auto; /* Center the paragraph */
+  padding: 0 20px; /* Add padding on the sides */
+}
