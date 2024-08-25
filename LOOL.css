@@ -40,7 +40,9 @@ nav a {
 nav li:hover a {
   color: white;
 }
-
+nav .logo {
+  padding: 10px
+}
 nav .logo img {
   height: 100px; /* Adjust as needed */
   width: auto;  /* Maintain aspect ratio */
@@ -119,7 +121,7 @@ button:hover {
 
 .slides img {
   width: 100%;
-  height: auto; /* Changed from fit-content to auto */
+  height: auto; 
   flex-shrink: 0;
 }
 
