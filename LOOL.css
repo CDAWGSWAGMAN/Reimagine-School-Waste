@@ -12,7 +12,7 @@ h1 {
 
 nav {
   background-color: #4F7942;
-  padding: 10px 0; /* Added padding for better spacing */
+  padding: 10px 0; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,10 +40,12 @@ nav a {
 nav li:hover a {
   color: white;
 }
-
+nav .logo {
+  padding: 10px
+}
 nav .logo img {
-  height: 100px; /* Adjust as needed */
-  width: auto;  /* Maintain aspect ratio */
+  height: 100px; 
+  width: auto;  
 }
 
 .container {
@@ -119,7 +121,7 @@ button:hover {
 
 .slides img {
   width: 100%;
-  height: auto; /* Changed from fit-content to auto */
+  height: auto; 
   flex-shrink: 0;
 }
 
@@ -170,12 +172,12 @@ button:hover {
 }
 
 .container1 {
-  display: flex; /* Enables Flexbox layout */
-  justify-content: space-around; /* Distributes space evenly between items */
-  align-items: stretch; /* Ensures items stretch to the same height if needed */
-  gap: 20px; /* Adds space between the boxes */
-  padding: 20px; /* Adds padding around the container */
-  flex-wrap: wrap; /* Allows items to wrap to the next line if needed */
+  display: flex; 
+  justify-content: space-around; 
+  align-items: stretch; 
+  gap: 20px; 
+  padding: 20px; 
+  flex-wrap: wrap; 
 }
 
 .box {
@@ -223,7 +225,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: auto; /* Ensures it is centered within its container */
+  margin: auto; 
 }
 
 .mission-container h1 {
@@ -244,17 +246,17 @@ button:hover {
 }
 
 .rectangle {
-  width: 100%;    /* Specify the width of the rectangle */
-  height: 50em;   /* Specify the height of the rectangle */
-  background-color: green; /* Set the background color to green */
-  display: flex;    /* Use flexbox for centering the iframe */
-  justify-content: center; /* Center the iframe horizontally */
-  align-items: center; /* Center the iframe vertically */
+  width: 100%;   
+  height: 50em;   
+  background-color: green; 
+  display: flex;   
+  justify-content: center; 
+  align-items: center; 
 }
 
 .rectangle iframe {
-  width: 80%;       /* Adjust the width of the iframe */
-  height: 80%;      /* Adjust the height of the iframe */
+  width: 80%;      
+  height: 80%;   
 }
 footer {
   background-color: #f8f9fa;
@@ -337,21 +339,21 @@ footer {
 .footer-bottom a:hover {
   text-decoration: underline;
 }
-/* Styling for the heading */
+
 h1 {
-  font-size: 2.5em; /* Larger font size for emphasis */
-  font-weight: bold; /* Make the font bold */
-  color: #2C3E50; /* Darker color for the heading */
-  text-align: center; /* Center align the heading */
-  margin-bottom: 20px; /* Add space below the heading */
+  font-size: 2.5em; 
+  font-weight: bold; 
+  color: #2C3E50; 
+  text-align: center; 
+  margin-bottom: 20px; 
 }
 
-/* Styling for the paragraph */
+
 p {
-  font-size: 1.2em; /* Slightly larger font size for readability */
-  line-height: 1.6; /* Increase line height for better readability */
-  color: #34495E; /* A slightly lighter color for the text */
-  max-width: 800px; /* Limit the width for better text flow */
-  margin: 0 auto; /* Center the paragraph */
-  padding: 0 20px; /* Add padding on the sides */
+  font-size: 1.2em; 
+  line-height: 1.6; 
+  color: #34495E; 
+  max-width: 800px; 
+  margin: 0 auto; 
+  padding: 0 20px; 
 }

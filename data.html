@@ -12,7 +12,7 @@
             </div>
             <ul>
                 <li><a href="LOOL.html">Home</a></li>
-                <li><a href="How_to.html">How to Recover Food</a></li>
+                <li><a href="How_to.html">How to Help</a></li>
                 <li><a href="data.html">Data</a></li>
                 <li><a href="about1.html">Our Mission</a></li>
                 <li><a href="Test.html">Contact Us</a></li>
@@ -26,7 +26,7 @@
                 <input
                   class="input"
                   type="text"
-                  placeholder="Ex: Gunnar"
+                  placeholder="e.g. Gunnar"
                   name="First Name"
                 />
               </div>
@@ -38,7 +38,7 @@
                 <input
                   class="input"
                   type="text"
-                  placeholder="Ex: Henderson"
+                  placeholder="e.g. Henderson"
                   name="Last Name"
                 />
               </div>
@@ -50,7 +50,7 @@
                 <input
                   class="input"
                   type="email"
-                  placeholder="Ex: JohnDoe@gmail.com"
+                  placeholder="e.g. JohnDoe@gmail.com"
                   name="Email"
                 />
               </div>
@@ -62,7 +62,7 @@
                 <input
                   class="input"
                   type="grade"
-                  placeholder="Ex: 10th"
+                  placeholder="e.g. 10th"
                   name="Grade"
                 />
               </div>
@@ -74,7 +74,11 @@
                 <input
                   class="input"
                   type="school"
+<<<<<<< HEAD
                   placeholder="Ex: Oakdale High School"
+=======
+                  placeholder="e.g. Oakdale High School"
+>>>>>>> 4d6fc90dbc714b753b64bba76fed47735d015491
                   name="School"
                 />
               </div>
@@ -86,7 +90,7 @@
                 <input
                   class="input"
                   type="State"
-                  placeholder="Ex: MD"
+                  placeholder="e.g. Maryland"
                   name="State"
                 />
               </div>
@@ -102,7 +106,7 @@
                   <input
                     class="input"
                     type="Lbs Collected"
-                    placeholder="Ex: 14lbs"
+                    placeholder="e.g. 14lbs"
                     name="Pounds Collected"
                   />
                 </div>
@@ -133,12 +137,12 @@
       
           <script>
             document.getElementById("form").addEventListener("submit", function (e) {
-              e.preventDefault(); // Prevent the default form submission
+              e.preventDefault(); 
               document.getElementById("message").textContent = "Submitting..";
               document.getElementById("message").style.display = "block";
               document.getElementById("submit-button").disabled = true;
       
-              // Collect the form data
+             
               var formData = new FormData(this);
               var keyValuePairs = [];
               for (var pair of formData.entries()) {
@@ -147,7 +151,7 @@
       
               var formDataString = keyValuePairs.join("&");
       
-              // Send a POST request to your Google Apps Script
+              
               fetch(
                 "https://script.google.com/macros/s/AKfycbwLZ3UOKx3EeENK_YbGQ_L-Qb9fmBgfHx26srTGf95u8t0vA7lw0qS2sQvmrwezUH4QOg/exec",
                 {
@@ -160,15 +164,15 @@
                 }
               )
                 .then(function (response) {
-                  // Check if the request was successful
+                  
                   if (response) {
-                    return response; // Assuming your script returns JSON response
+                    return response; 
                   } else {
                     throw new Error("Failed to submit the form.");
                   }
                 })
                 .then(function (data) {
-                  // Display a success message
+                  
                   document.getElementById("message").textContent =
                     "Data submitted successfully!";
                   document.getElementById("message").style.display = "block";
@@ -183,7 +187,6 @@
                   }, 2600);
                 })
                 .catch(function (error) {
-                  // Handle errors, you can display an error message here
                   console.error(error);
                   document.getElementById("message").textContent =
                     "An error occurred while submitting the form.";
@@ -209,7 +212,7 @@
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="LOOL.html">Home</a></li>
-                        <li><a href="How_to.html">How to Compost</a></li>
+                        <li><a href="How_to.html">How to Help</a></li>
                         <li><a href="about1.html">Our Mission</a></li>
                         <li><a href="Test.html">Contact Us</a></li>
                     </ul>
