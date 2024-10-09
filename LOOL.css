@@ -396,3 +396,45 @@ h2 {
   text-align: center;
   font-weight: normal;
 }
+
+.green-button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 20px 40px; /* Padding */
+  text-align: center; /* Center text */
+  text-decoration: none; /* No underline */
+  display: inline-block; /* Inline block element */
+  border-radius: 5px; /* Rounded corners */
+  position: absolute; /* Positioning */
+  right: 20px; /* Align to the right */
+  top: 150px; /* Adjust top position */
+  transition: background-color 0.3s; /* Smooth transition */
+  font-size: 18px;
+}
+.green-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+.image-container {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Center the images horizontally */
+  margin: 20px 0; /* Add margin above and below */
+}
+
+.responsive-image {
+  max-width: 20%; /* Make images responsive */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0 5px
+}
+.contact-section {
+  margin-bottom: 20px;
+  border: 1px solid #bdc3c7;
+  padding: 15px;
+  border-radius: 5px;
+}
+.contact-item {
+  margin-bottom: 10px;
+}
+.contact-item strong {
+  display: block;
+  margin-bottom: 5px;
+}
