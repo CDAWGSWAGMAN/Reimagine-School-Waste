@@ -438,3 +438,25 @@ h2 {
   display: block;
   margin-bottom: 5px;
 }
+
+
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+select {
+  -webkit-appearance: none; /* Remove default styling in Safari */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default styling in other browsers */
+  background-color: white; /* Set background color */
+  background-image: url('data:image/png;base64,...'); /* Add a custom arrow icon if desired */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Position the arrow */
+  background-size: 12px; /* Size of the arrow */
+  padding-right: 40px; /* Space for the arrow */
+}
