@@ -61,14 +61,17 @@
       </div>
 
       <div class="field">
-        <label class="label">Grade</label>
+        <label class="label">Position</label>
         <div class="control">
-          <input
-            class="input"
-            type="grade"
-            placeholder="e.g. 10th"
-            name="Grade" required
-          />
+          <select class="input" name="Grade" required>
+            <option value="" disabled selected>Select your position</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Student">Student</option>
+            <option value="Staff">Staff</option>
+            <option value="PTA">PTA</option>
+            <option value="Parent">Parent</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
       </div>
 
