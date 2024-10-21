@@ -84,6 +84,7 @@ body {
 
 .container2 {
   width: 50%;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -140,6 +141,7 @@ button:hover {
   overflow: hidden;
   width: 80%;
   margin: auto;
+  max-width: 1200px;
 }
 
 .slides {
