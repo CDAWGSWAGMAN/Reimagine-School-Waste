@@ -23,78 +23,78 @@
         <li><a href="Contact.html">Contact Us</a></li>
       </ul>
   </nav>
-    <form id="form" class="container m-4 pl-4" method="POST">
+    <form id="form" action="connect.php" class="container m-4 pl-4" method="post">
       <div class="field">
-        <label class="label">First Name</label>
+        <label class="label" for="firstName">First Name</label>
         <div class="control">
           <input
             class="input"
             type="text"
             placeholder="e.g. Gunnar"
-            name="First Name" required
+            name="firstName" required
           />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Last Name</label>
+        <label class="label" for="lastName">Last Name</label>
         <div class="control">
           <input
             class="input"
             type="text"
             placeholder="e.g. Henderson"
-            name="Last Name" required
+            name="lastName" required
           />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Email</label>
+        <label class="label" for="email">Email</label>
         <div class="control">
           <input
             class="input"
             type="email"
             placeholder="e.g. JohnDoe@gmail.com"
-            name="Email" required
+            name="email" required
           />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Position</label>
+        <label class="label" for="position">Position</label>
         <div class="control">
-          <select class="input" name="Grade" required>
-            <option value="" disabled selected>Select your position</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Student">Student</option>
-            <option value="Staff">Staff</option>
-            <option value="PTA">PTA</option>
-            <option value="Parent">Parent</option>
-            <option value="Other">Other</option>
+          <select class="input" name="position" required>
+            <option name="n/a" value="" disabled selected>Select your position</option>
+            <option name="Teacher" value="Teacher">Teacher</option>
+            <option name="Student" value="Student">Student</option>
+            <option name="Staff" value="Staff">Staff</option> 
+            <option name="PTA" value="PTA">PTA</option>
+            <option name="Parent" value="Parent">Parent</option>
+            <option name="Other" value="Other">Other</option>
           </select>
         </div>
       </div>
 
       <div class="field">
-        <label class="label">School</label>
+        <label class="label" for="school">School</label>
         <div class="control">
           <input
             class="input"
             type="school"
             placeholder="e.g. Oakdale High School"
-            name="School" required
+            name="school" required
           />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">State</label>
+        <label class="label" for="state">State</label>
         <div class="control">
           <input
             class="input"
             type="State"
             placeholder="e.g. Maryland"
-            name="State" required
+            name="state" required
           />
         </div>
       </div>
@@ -104,26 +104,20 @@
       
 
       <div class="field">
-        <label class="label">Message</label>
+        <label class="label" for="message">Message</label>
         <div class="control">
           <textarea
             class="textarea"
             placeholder="Any additional information"
-            name="Message" required
+            name="message" required
           ></textarea>
         </div>
       </div>
-<br>
-<script src="app.js"></script>
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">
-            Submit
-          </button>
-        </div>
-        
-      </div>
+      <button class="button is-primary" type="submit" id="submit-button">
+        Submit
+      </button>
     </form>
+      <br>
     <div
       id="message"
       style="
@@ -138,64 +132,7 @@
       "
     ></div>
 
-    <script>
-      document.getElementById("form").addEventListener("submit", function (e) {
-        e.preventDefault(); 
-        document.getElementById("message").textContent = "Submitting..";
-        document.getElementById("message").style.display = "block";
-        document.getElementById("submit-button").disabled = true;
-
-        
-        var formData = new FormData(this);
-        var keyValuePairs = [];
-        for (var pair of formData.entries()) {
-          keyValuePairs.push(pair[0] + "=" + pair[1]);
-        }
-
-        var formDataString = keyValuePairs.join("&");
-
-        
-        fetch(
-          "https://script.google.com/macros/s/AKfycbygJ7b14vT4wJfKP2Oqe16Kr3rqcL2KdQGYPJ5KKjrUyuGN-7VcY7Ni90T8uMdWCaQQ/exec",
-          {
-            redirect: "follow",
-            method: "POST",
-            body: formDataString,
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8",
-            },
-          }
-        )
-          .then(function (response) {
-            if (response) {
-              return response; 
-            } else {
-              throw new Error("Failed to submit the form.");
-            }
-          })
-          .then(function (data) {
-           
-            document.getElementById("message").textContent =
-              "Data submitted successfully!";
-            document.getElementById("message").style.display = "block";
-            document.getElementById("message").style.backgroundColor = "green";
-            document.getElementById("message").style.color = "beige";
-            document.getElementById("submit-button").disabled = false;
-            document.getElementById("form").reset();
-
-            setTimeout(function () {
-              document.getElementById("message").textContent = "";
-              document.getElementById("message").style.display = "none";
-            }, 2600);
-          })
-          .catch(function (error) {
-            console.error(error);
-            document.getElementById("message").textContent =
-              "An error occurred while submitting the form.";
-            document.getElementById("message").style.display = "block";
-          });
-      });
-    </script>
+  
      <footer>
         <div class="footer-container">
             <div class="footer-content">
