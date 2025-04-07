@@ -506,3 +506,36 @@ h5 {
       max-width: 200px; /* Set a maximum width for larger screens */
   }
 }
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-buttons {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.auth-buttons .button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.auth-buttons .button:hover {
+  background-color: #45a049;
+}
