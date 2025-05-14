@@ -67,7 +67,7 @@ if (!$question) {
     <li><a href="tool_kit.html">Tool Kit</a></li>
     <li><a href="How_to.html">Getting Started</a></li>
     <li><a href="data.html">Data</a></li>
-    <li><a href="Contact.html">Connect</a></li>
+    
     <li><a href="community.php">Community Forms</a></li>
   </ul>
   <div class="user-greeting">

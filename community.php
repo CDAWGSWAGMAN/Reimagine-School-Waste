@@ -14,6 +14,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
   <meta charset="UTF-8" />
   <title>Community - Lunch Out of Landfills</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="app.js"></script>
   <style>
     .user-greeting { margin-left: auto; padding-right: 20px; }
     .post-form, .question, .response {
@@ -38,7 +39,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
     <li><a href="tool_kit.html">Tool Kit</a></li>
     <li><a href="How_to.html">Getting Started</a></li>
     <li><a href="data.html">Data</a></li>
-    <li><a href="Contact.html">Connect</a></li>
+   
     <li><a href="community.php">Community Forms</a></li>
   </ul>
   <div class="user-greeting">
@@ -50,10 +51,13 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
 </nav>
 
 <div class="post-form">
-  <form method="GET" action="community.php">
-    <input type="text" name="search" placeholder="Search questions..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="width: 70%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-    <button type="submit" style="padding: 10px 15px; border-radius: 6px; background-color: #4CAF50; color: white;">Search</button>
-    <a href="community.php" style="padding: 10px 15px; border-radius: 6px; background-color: #aaa; color: white; text-decoration: none;">Clear</a>
+  <form method="GET" action="community.php" class="search-form">
+    <input type="text" name="search" placeholder="Search questions..." 
+           value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" 
+           style="flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 16px;">
+           
+    <button type="submit" class="Search-button">Search</button>
+    <a href="community.php" class="clear-button">Clear</a>
   </form>
 </div>
 

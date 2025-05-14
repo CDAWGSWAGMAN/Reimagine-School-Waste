@@ -6,6 +6,7 @@ body {
 }
 
 h1 {
+  font-size: 2.5rem; 
   text-align: center;
   color: black;
 }
@@ -79,7 +80,7 @@ body {
 .container {
   width: 75%;
   margin: auto;
-  padding: 20px;
+  padding: 1.125rem;
 }
 
 .container2 {
@@ -400,22 +401,74 @@ h2 {
 }
 
 .green-button {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-  padding: 20px 40px; /* Padding */
-  text-align: center; /* Center text */
-  text-decoration: none; /* No underline */
-  display: inline-block; /* Inline block element */
-  border-radius: 5px; /* Rounded corners */
-  position: absolute; /* Positioning */
-  right: 20px; /* Align to the right */
-  top: 150px; /* Adjust top position */
-  transition: background-color 0.3s; /* Smooth transition */
-  font-size: 18px;
+  display: flex;                           /* ✅ block-level flex centers correctly */
+  justify-content: center;
+  align-items: center;
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin: 1rem auto;
+  max-width: max-content;                  /* ✅ stops button from stretching full width */
 }
+
+
 .green-button:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #45a049;
 }
+
+/* Responsive improvements */
+@media (max-width: 600px) {
+  .green-button {
+      width: 90%;
+      font-size: 1rem;
+      padding: 1.25rem 1rem;
+  }
+}
+
+.toolkit-button-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.toolkit-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4CAF50;     /* ✅ green background */
+  color: white;
+  text-align: center;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.toolkit-button:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Responsive: full width on phones */
+@media (max-width: 600px) {
+  .toolkit-button {
+      width: 90%;
+      font-size: 1rem;
+      padding: 1.25rem 1rem;
+      display: block;
+      margin: 0 auto;
+  }
+}
+
+
+
 .image-container {
   display: flex; /* Use flexbox for alignment */
   justify-content: center; /* Center the images horizontally */
@@ -560,3 +613,177 @@ h5 {
     font-size: 1.5em;
   }
 }
+
+.clear-button, .Search-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #aaa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;               /* Increased padding for size */
+  font-size: 18px;
+  text-decoration: none !important;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 100px;                 /* Minimum width for smaller screens */
+  max-width: 200px;                 /* Optional max width for larger screens */
+}
+
+.Search-button {
+  background-color: #25b854;
+}
+
+.Search-button:hover {
+  background-color: #1e9a45;
+}
+
+.clear-button:hover {
+  background-color: #888;
+}
+
+/* Make buttons stack on smaller screens if needed */
+@media (max-width: 480px) {
+  .clear-button, .Search-button {
+    width: 100%;                    /* Full width on very small screens */
+    margin-bottom: 10px;
+  }
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input field */
+.search-form input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.search-form input[type="text"]:focus {
+  border-color: rgb(14, 118, 189);
+  box-shadow: 0 0 0 3px rgba(14, 118, 189, 0.2);
+  outline: none;
+}
+
+/* Buttons */
+.clear-button, .Search-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Search button specific */
+.Search-button {
+  background-color: #25b854;
+  color: white;
+}
+
+.Search-button:hover {
+  background-color: #1e9a45;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Clear button specific */
+.clear-button {
+  background-color: #aaa;
+  color: white;
+}
+
+.clear-button:hover {
+  background-color: #888;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile stacking */
+@media (max-width: 480px) {
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-form input,
+  .clear-button,
+  .Search-button {
+    width: 100%;
+  }
+}
+
+/* Base card style for containers */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+/* Consistent button style */
+.button-material {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.button-material:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* For section wrappers */
+.section {
+  padding: 40px 20px;
+}
+
+/* For form inputs */
+.input-material {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.input-material:focus {
+  border-color: rgb(14, 118, 189);
+  box-shadow: 0 0 0 3px rgba(14, 118, 189, 0.2);
+  outline: none;
+}
+
+
+
