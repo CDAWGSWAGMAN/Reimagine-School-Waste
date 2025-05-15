@@ -64,7 +64,7 @@ if (!$question) {
   </div>
   <ul>
     <li><a href="index.html">Home</a></li>
-    <li><a href="tool_kit.html">Tool Kit</a></li>
+    <li><a href="tool_kit.html">Resources</a></li>
     <li><a href="How_to.html">Getting Started</a></li>
     <li><a href="data.html">Data</a></li>
     
