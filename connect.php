@@ -1,12 +1,3 @@
-handling the form data correctly. You might want to add a success message after the data is saved to the database, as well as check if the POST method is being used.
-
-
-Here’s an updated version of connect.php that includes a success message after the form submission:
-
-
-php
-Copy
-Edit
 <?php
 // Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

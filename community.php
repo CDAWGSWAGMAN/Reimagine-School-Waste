@@ -88,20 +88,22 @@ foreach ($questions as $question):
     <p><strong><?php echo htmlspecialchars($question['username']); ?></strong> on <?php echo date("F j, Y", strtotime($question['created_at'])); ?></p>
     <p><?php echo nl2br(htmlspecialchars($question['content'])); ?></p>
     <?php if (!empty($question['image_data'])): ?>
-      <img src="data:<?php echo htmlspecialchars($question['image_type']); ?>;base64,<?php echo base64_encode($question['image_data']); ?>" alt="Question Image">
-    <?php endif; ?>
+  <img src="data:<?php echo htmlspecialchars($question['image_type']); ?>;base64,<?php echo base64_encode($question['image_data']); ?>" alt="Question Image">
+<?php endif; ?>
 
-    <?php
-      $likeCount = $pdo->prepare("SELECT COUNT(*) FROM Likes WHERE question_id = ?");
-      $likeCount->execute([$question['question_id']]);
-      $count = $likeCount->fetchColumn();
-    ?>
-    <form class="like-form" data-question-id="<?php echo $question['question_id']; ?>" style="margin-top: 10px; display: inline-flex; align-items: center; gap: 8px;">
-      <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
-        <img src="images/thumb-up.png" alt="Like" width="24" height="24">
-      </button>
-      <span class="like-count"><?php echo $count; ?></span>
-    </form>
+<?php
+  $likeCount = $pdo->prepare("SELECT COUNT(*) FROM Likes WHERE question_id = ?");
+  $likeCount->execute([$question['question_id']]);
+  $count = $likeCount->fetchColumn();
+?>
+<div style="margin-top: 10px; text-align: left; width: 100%;">
+  <form class="like-form" data-question-id="<?php echo $question['question_id']; ?>" style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
+    <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
+      <img src="images/thumb-up.png" alt="Like" width="24" height="24">
+    </button>
+    <span class="like-count"><?php echo $count; ?></span>
+  </form>
+</div>
 
     <?php if ($question['user_id'] == $_SESSION['user_id']): ?>
       <form action="edit_question.php" method="GET" class="button-inline">
