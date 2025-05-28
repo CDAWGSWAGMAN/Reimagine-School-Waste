@@ -12,6 +12,10 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
 
 $question_id = $_GET['question_id'];
@@ -38,9 +42,7 @@ if (!$question) {
       margin: 0;
       padding: 0;
     }
-    
     .user-greeting { margin-left: auto; padding-right: 20px; font-weight: bold; }
-    
     .edit-form {
       max-width: 600px;
       margin: 40px auto;
@@ -60,7 +62,14 @@ if (!$question) {
       color: white;
       border: none;
     }
-    .logout-btn {padding: 6px 12px; background-color: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    .logout-btn {
+      padding: 6px 12px;
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -74,7 +83,6 @@ if (!$question) {
     <li><a href="tool_kit.html">Resources</a></li>
     <li><a href="How_to.html">Getting Started</a></li>
     <li><a href="data.html">Data</a></li>
-    
     <li><a href="community.php">Community Forms</a></li>
   </ul>
   <div class="user-greeting">
@@ -84,15 +92,12 @@ if (!$question) {
     <button onclick="confirmLogout()" class="logout-btn">Logout</button>
   </div>
 </nav>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br>
 <div class="edit-form">
   <h2>Edit Your Post</h2>
   <form action="update_question.php" method="POST">
     <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
+    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     <label>Title:</label>
     <input type="text" name="title" value="<?php echo htmlspecialchars($question['title']); ?>" required>
 

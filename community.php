@@ -1,15 +1,19 @@
 <?php
 session_start([
-  'cookie_lifetime' => 0, // expires on browser close
-  'cookie_httponly' => true, // JS can't access cookies
-  'cookie_secure' => isset($_SERVER['HTTPS']), // only send cookie over HTTPS
-  'use_strict_mode' => true, // reject uninitialized session IDs
-  'use_only_cookies' => true, // don't allow session ID in URL
+  'cookie_lifetime' => 0,
+  'cookie_httponly' => true,
+  'cookie_secure' => isset($_SERVER['HTTPS']),
+  'use_strict_mode' => true,
+  'use_only_cookies' => true,
 ]);
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: signup.html");
     exit;
+}
+
+if (!isset($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
 $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
@@ -46,7 +50,6 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
     <li><a href="tool_kit.html">Resources</a></li>
     <li><a href="How_to.html">Getting Started</a></li>
     <li><a href="data.html">Data</a></li>
-   
     <li><a href="community.php">Community Forms</a></li>
   </ul>
   <div class="user-greeting">
@@ -62,7 +65,6 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
     <input type="text" name="search" placeholder="Search questions..." 
            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" 
            style="flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 16px;">
-           
     <button type="submit" class="Search-button">Search</button>
     <a href="community.php" class="clear-button">Clear</a>
   </form>
@@ -71,6 +73,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
 <div class="post-form">
   <h2>Ask a Question or Share an Idea</h2>
   <form action="post_question.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     <input type="text" name="title" placeholder="Title" required><br><br>
     <textarea name="content" placeholder="Write your question or idea" rows="4" required></textarea><br><br>
     <input type="file" name="image" accept="image/*"><br><br>
@@ -95,22 +98,22 @@ foreach ($questions as $question):
     <p><strong><?php echo htmlspecialchars($question['username']); ?></strong> on <?php echo date("F j, Y", strtotime($question['created_at'])); ?></p>
     <p><?php echo nl2br(htmlspecialchars($question['content'])); ?></p>
     <?php if (!empty($question['image_data'])): ?>
-  <img src="data:<?php echo htmlspecialchars($question['image_type']); ?>;base64,<?php echo base64_encode($question['image_data']); ?>" alt="Question Image">
-<?php endif; ?>
+      <img src="data:<?php echo htmlspecialchars($question['image_type']); ?>;base64,<?php echo base64_encode($question['image_data']); ?>" alt="Question Image">
+    <?php endif; ?>
 
-<?php
-  $likeCount = $pdo->prepare("SELECT COUNT(*) FROM Likes WHERE question_id = ?");
-  $likeCount->execute([$question['question_id']]);
-  $count = $likeCount->fetchColumn();
-?>
-<div style="margin-top: 10px; text-align: left; width: 100%;">
-  <form class="like-form" data-question-id="<?php echo $question['question_id']; ?>" style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
-    <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
-      <img src="images/thumb-up.png" alt="Like" width="24" height="24">
-    </button>
-    <span class="like-count"><?php echo $count; ?></span>
-  </form>
-</div>
+    <?php
+    $likeCount = $pdo->prepare("SELECT COUNT(*) FROM Likes WHERE question_id = ?");
+    $likeCount->execute([$question['question_id']]);
+    $count = $likeCount->fetchColumn();
+    ?>
+    <div style="margin-top: 10px; text-align: left; width: 100%;">
+      <form class="like-form" data-question-id="<?php echo $question['question_id']; ?>" style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
+        <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
+          <img src="images/thumb-up.png" alt="Like" width="24" height="24">
+        </button>
+        <span class="like-count"><?php echo $count; ?></span>
+      </form>
+    </div>
 
     <?php if ($question['user_id'] == $_SESSION['user_id']): ?>
       <form action="edit_question.php" method="GET" class="button-inline">
@@ -119,6 +122,7 @@ foreach ($questions as $question):
       </form>
       <form action="delete_question.php" method="POST" class="button-inline" onsubmit="return confirm('Are you sure you want to delete this question?');">
         <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
         <button type="submit">Delete</button>
       </form>
     <?php endif; ?>
@@ -126,16 +130,17 @@ foreach ($questions as $question):
     <div class="response-form">
       <form action="post_response.php" method="POST">
         <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
         <textarea name="response_text" placeholder="Write a response..." rows="2" required></textarea><br>
         <button type="submit">Respond</button>
       </form>
     </div>
 
     <?php
-      $stmt2 = $pdo->prepare("SELECT r.*, u.username FROM Responses r JOIN users u ON r.user_id = u.user_id WHERE r.question_id = ? ORDER BY r.created_at ASC");
-      $stmt2->execute([$question['question_id']]);
-      $responses = $stmt2->fetchAll();
-      foreach ($responses as $response):
+    $stmt2 = $pdo->prepare("SELECT r.*, u.username FROM Responses r JOIN users u ON r.user_id = u.user_id WHERE r.question_id = ? ORDER BY r.created_at ASC");
+    $stmt2->execute([$question['question_id']]);
+    $responses = $stmt2->fetchAll();
+    foreach ($responses as $response):
     ?>
       <div class="response">
         <p><strong><?php echo htmlspecialchars($response['username']); ?>:</strong> <?php echo nl2br(htmlspecialchars($response['content'])); ?></p>

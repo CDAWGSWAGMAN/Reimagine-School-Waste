@@ -9,6 +9,11 @@ session_start([
 
 header('Content-Type: text/plain');
 
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405); // Method Not Allowed
+    exit('Method Not Allowed');
+}
+
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401); // Unauthorized
     exit('Not logged in');

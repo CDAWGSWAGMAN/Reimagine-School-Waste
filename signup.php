@@ -1,11 +1,13 @@
 <?php
 session_start([
-    'cookie_lifetime' => 0, // expires on browser close
-    'cookie_httponly' => true, // JS can't access cookies
-    'cookie_secure' => isset($_SERVER['HTTPS']), // only send cookie over HTTPS
-    'use_strict_mode' => true, // reject uninitialized session IDs
-    'use_only_cookies' => true, // don't allow session ID in URL
+    'cookie_lifetime' => 0,
+    'cookie_httponly' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS']),
+    'use_strict_mode' => true,
+    'use_only_cookies' => true,
 ]);
+
+require_once 'profanity_filter.php';
 
 header('Content-Type: application/json');
 
@@ -15,10 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// CSRF Token validation
+$data = json_decode(file_get_contents("php://input"), true);
+if (!isset($_SESSION['csrf_token']) || !isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token']) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'error' => 'CSRF token validation failed.']);
+    exit;
+}
+
 $host = 'localhost';
 $db   = 'LOOL';
 $user = 'root';
-$pass = 'root'; // MAMP default
+$pass = 'root';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -35,8 +45,6 @@ try {
     exit;
 }
 
-$data = json_decode(file_get_contents("php://input"), true);
-
 $username = trim($data['username'] ?? '');
 $email = trim($data['email'] ?? '');
 $password = $data['password'] ?? '';
@@ -45,6 +53,12 @@ $state = $data['state'] ?? '';
 
 if (!$username || !$email || !$password || !$school_level || !$state) {
     echo json_encode(['success' => false, 'error' => 'All fields are required.']);
+    exit;
+}
+
+// Check for profanity
+if (contains_profanity($username)) {
+    echo json_encode(['success' => false, 'error' => 'Username contains inappropriate language.']);
     exit;
 }
 
@@ -70,4 +84,3 @@ if ($success) {
 } else {
     echo json_encode(['success' => false, 'error' => 'Signup failed.']);
 }
-?>
