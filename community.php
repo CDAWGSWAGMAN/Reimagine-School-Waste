@@ -16,9 +16,12 @@ if (!isset($_SESSION['csrf_token'])) {
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
-?>
+$pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root", [
+  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+]);
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,12 +151,12 @@ foreach ($questions as $question):
     <?php endforeach; ?>
   </div>
 <?php endforeach; ?>
+
 <?php if (!empty($_SESSION['profanity_error'])): ?>
 <script>
     alert('🚫 Your post contains inappropriate language. Please edit and try again.');
 </script>
 <?php unset($_SESSION['profanity_error']); endif; ?>
-
 
 <script>
 document.querySelectorAll(".like-form").forEach(form => {

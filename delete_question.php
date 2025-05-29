@@ -7,6 +7,7 @@ session_start([
     'use_strict_mode' => true,
     'use_only_cookies' => true,
 ]);
+session_regenerate_id(true);
 
 // Set security headers
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'");
@@ -15,6 +16,7 @@ header("X-Content-Type-Options: nosniff");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
 header("Referrer-Policy: no-referrer");
 
+// Ensure user is authenticated
 if (!isset($_SESSION['user_id'])) {
     header("Location: signup.html");
     exit;
@@ -32,17 +34,27 @@ if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_tok
     exit('Invalid CSRF token');
 }
 
+// Validate and sanitize input
+$question_id = filter_var($_POST['question_id'], FILTER_VALIDATE_INT);
+if (!$question_id) {
+    http_response_code(400);
+    exit('Invalid question ID');
+}
+
 // Database connection
 $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root", [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
 
-// Validate and sanitize input
-$question_id = filter_var($_POST['question_id'], FILTER_VALIDATE_INT);
-if (!$question_id) {
-    http_response_code(400);
-    exit('Invalid question ID');
+// Confirm the question belongs to the user
+$stmt = $pdo->prepare("SELECT user_id FROM Questions WHERE question_id = ?");
+$stmt->execute([$question_id]);
+$question = $stmt->fetch();
+
+if (!$question || $question['user_id'] !== $_SESSION['user_id']) {
+    http_response_code(403);
+    exit('Unauthorized');
 }
 
 // Delete related likes
@@ -53,10 +65,11 @@ $stmt->execute([$question_id]);
 $stmt = $pdo->prepare("DELETE FROM Responses WHERE question_id = ?");
 $stmt->execute([$question_id]);
 
-// Delete the question (must belong to current user)
-$stmt = $pdo->prepare("DELETE FROM Questions WHERE question_id = ? AND user_id = ?");
-$stmt->execute([$question_id, $_SESSION['user_id']]);
+// Delete the question
+$stmt = $pdo->prepare("DELETE FROM Questions WHERE question_id = ?");
+$stmt->execute([$question_id]);
 
-// Redirect back to community
+// Redirect to community page
 header("Location: community.php");
 exit;
+?>

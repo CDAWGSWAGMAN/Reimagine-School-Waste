@@ -59,7 +59,7 @@ function contains_profanity($text): bool{
         'edging', 'nipple fetish', 'kissyfish', 'suckit', 'spanker', 'spooner', 'panty sniff',
         'feet pics', 'doggystyle', 'backdoor', 'gash', 'tooty call', 'sugar daddy', 'sugar baby',
         'noodz', 'milkers', 'tiddies', 'hentai', 'tentacle', 'anime thighs', 'vore', 'yiff',
-        'teats', 'meatspin', 'stepbro', 'brazzers', 'bangbros', 'diddy'
+        'teats', 'meatspin', 'stepbro', 'brazzers', 'bangbros', 'diddy','Chicken jockey',
     ];
 
     $text = strtolower($text);

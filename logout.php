@@ -7,10 +7,11 @@ session_start([
     'use_only_cookies' => true, // don't allow session ID in URL
 ]);
 
-// Regenerate session ID for security and then destroy session
+// Regenerate session ID to prevent session fixation
 session_regenerate_id(true);
-session_unset();
-session_destroy();
+
+// Clear all session variables
+$_SESSION = [];
 
 // Clear the session cookie from the browser
 if (ini_get("session.use_cookies")) {
@@ -21,5 +22,16 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
+// Destroy the session
+session_destroy();
+
+// Security headers
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+header("Referrer-Policy: no-referrer");
+
+// Redirect to login page
 header("Location: login.html");
 exit;

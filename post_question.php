@@ -24,10 +24,13 @@ if (!isset($_SESSION['user_id'])) {
 
 // CSRF Token Check
 if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    die("CSRF token validation failed.");
+    echo "<script>alert('CSRF token validation failed.'); window.location.href='community.php';</script>";
+    exit;
 }
 
-$pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
+$pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root", [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+]);
 
 $user_id = $_SESSION['user_id'];
 $title = trim($_POST['title'] ?? '');
@@ -43,6 +46,7 @@ if (contains_profanity($title) || contains_profanity($content)) {
 $image_data = null;
 $image_type = null;
 
+// Secure Image Upload
 if (!empty($_FILES['image']['name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
     $image_type = mime_content_type($_FILES['image']['tmp_name']);
     $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/heic', 'image/heif'];
@@ -50,10 +54,12 @@ if (!empty($_FILES['image']['name']) && is_uploaded_file($_FILES['image']['tmp_n
     if (in_array($image_type, $allowed_types)) {
         $image_data = file_get_contents($_FILES['image']['tmp_name']);
     } else {
-        die("Only image files (JPG, PNG, GIF, WEBP, HEIC) are allowed.");
+        echo "<script>alert('❌ Only image files (JPG, PNG, GIF, WEBP, HEIC) are allowed.'); window.location.href='community.php';</script>";
+        exit;
     }
 }
 
+// Prepared statement to insert question
 $stmt = $pdo->prepare("INSERT INTO Questions (user_id, title, content, image_data, image_type) VALUES (?, ?, ?, ?, ?)");
 $stmt->execute([$user_id, $title, $content, $image_data, $image_type]);
 

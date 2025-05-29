@@ -6,6 +6,14 @@ session_start([
     'use_strict_mode' => true,
     'use_only_cookies' => true,
 ]);
+session_regenerate_id(true);
+
+// Security Headers
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+header("Referrer-Policy: no-referrer");
 
 require_once 'profanity_filter.php';
 
@@ -14,33 +22,14 @@ if (!isset($_SESSION['csrf_token'])) {
 }
 $csrf_token = $_SESSION['csrf_token'];
 
+// Handle POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
 
     $data = json_decode(file_get_contents("php://input"), true);
-    if (!isset($_SESSION['csrf_token']) || !isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token']) {
+    if (!isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token']) {
         http_response_code(403);
         echo json_encode(['success' => false, 'error' => 'CSRF token validation failed.']);
-        exit;
-    }
-
-    $host = 'localhost';
-    $db   = 'LOOL';
-    $user = 'root';
-    $pass = 'root';
-    $charset = 'utf8mb4';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-    $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ];
-
-    try {
-        $pdo = new PDO($dsn, $user, $pass, $options);
-    } catch (PDOException $e) {
-        http_response_code(500);
-        echo json_encode(['success' => false, 'error' => 'Database connection failed.']);
         exit;
     }
 
@@ -55,10 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    if (contains_profanity($username)) {
-        echo json_encode(['success' => false, 'error' => 'Username contains inappropriate language.']);
+    if (contains_profanity($username) || contains_profanity($password)) {
+        echo json_encode(['success' => false, 'error' => 'Username or password contains inappropriate language.']);
         exit;
     }
+
+    $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root", [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
 
     $stmt = $pdo->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
     $stmt->execute([$username, $email]);
@@ -75,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($success) {
         $_SESSION['user_id'] = $pdo->lastInsertId();
         $_SESSION['username'] = $username;
-        session_regenerate_id(true);
         echo json_encode(['success' => true, 'redirect' => 'community.php']);
     } else {
         echo json_encode(['success' => false, 'error' => 'Signup failed.']);
@@ -85,13 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Lunch Out of Landfills - Sign Up</title>
     <link rel="stylesheet" href="styles.css" />
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
-    </style>
+    <style>@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');</style>
 </head>
 <body>
 
@@ -110,8 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="login.html" class="button">Login</a>
     </div>
 </nav>
-
-<br>
 
 <div class="signup-container">
     <h2>Create an Account</h2>
@@ -153,7 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Sign Up</button>
     </form>
 </div>
-
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

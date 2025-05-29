@@ -6,20 +6,30 @@ session_start([
     'use_strict_mode' => true,
     'use_only_cookies' => true,
 ]);
+session_regenerate_id(true);
 
-header('Content-Type: application/json');
+// Security Headers
+header("Content-Type: application/json");
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+header("Referrer-Policy: no-referrer");
 
+// Allow only POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'error' => 'Invalid request method.']);
     exit;
 }
 
+// Parse JSON input
 $data = json_decode(file_get_contents("php://input"), true);
 $email = trim($data['email'] ?? '');
 $password = $data['password'] ?? '';
 
 if (!$email || !$password) {
+    http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Email and password are required.']);
     exit;
 }
@@ -38,12 +48,15 @@ try {
         $_SESSION['username'] = $user['username'];
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         session_regenerate_id(true);
+
         echo json_encode(['success' => true, 'redirect' => 'community.php']);
     } else {
+        http_response_code(401);
         echo json_encode(['success' => false, 'error' => 'Invalid email or password.']);
     }
 } catch (Exception $e) {
     error_log('Login error: ' . $e->getMessage());
-    echo json_encode(['success' => false, 'error' => 'An error occurred.']);
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'An internal error occurred.']);
 }
 ?>
