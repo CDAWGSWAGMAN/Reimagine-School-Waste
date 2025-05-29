@@ -35,7 +35,8 @@ $content = trim($_POST['content'] ?? '');
 
 // Profanity Check
 if (contains_profanity($title) || contains_profanity($content)) {
-    echo "<script>alert('Your post contains inappropriate language. Please revise and try again.'); window.location.href='community.php';</script>";
+    $_SESSION['profanity_error'] = true;
+    header("Location: community.php");
     exit;
 }
 
@@ -58,3 +59,4 @@ $stmt->execute([$user_id, $title, $content, $image_data, $image_type]);
 
 header("Location: community.php");
 exit;
+?>

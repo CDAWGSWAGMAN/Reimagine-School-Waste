@@ -1,5 +1,5 @@
-<?php
-function contains_profanity($text) {
+<?php 
+function contains_profanity($text): bool{
     $profanities = [
         // Mild / disruptive
         'crap', 'damn', 'heck', 'butt', 'fart', 'screw', 'poop', 'pee', 'dookie', 'booty', 'wiener', 'butthead',
@@ -15,7 +15,7 @@ function contains_profanity($text) {
 
         // Racial & hate speech
         'nigger', 'chink', 'spic', 'gook', 'retard', 'fag', 'faggot', 'dyke', 'tranny', 'kike', 'coon',
-        'wetback', 'terrorist', 'muslim', 'nazis', 'nazi', 'islamist', 'slanty', 'sandnigger',
+        'wetback', 'terrorist', 'muslim', 'nazis', 'nazi', 'islamist', 'slanty', 'sandnigger','nigga',
 
         // Violent/self-harm
         'kill', 'suicide', 'murder', 'bomb', 'stab', 'shoot', 'rape', 'abuse', 'decapitate',
@@ -62,15 +62,15 @@ function contains_profanity($text) {
         'teats', 'meatspin', 'stepbro', 'brazzers', 'bangbros', 'diddy'
     ];
 
-    $normalized = strtolower($text);
-    $normalized = preg_replace('/[^a-z0-9\s💦😘🍑🍆👅😩👙💋🔥😈]/i', '', $normalized);
+    $text = strtolower($text);
 
-    foreach ($profanities as $word) {
-        if (preg_match('/\\b' . preg_quote($word, '/') . '\\b/i', $normalized)) {
-            echo "<script>alert('Your post contains inappropriate language. Please revise and try again.'); window.location.href='community.php';</script>";
-            exit;
+    foreach ($profanities as $bad) {
+        $pattern = '/\b' . preg_quote($bad, '/') . '\b/i';  // Match whole words case-insensitively
+        if (preg_match($pattern, $text)) {
+            return true;
         }
     }
+
     return false;
 }
 ?>

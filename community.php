@@ -148,6 +148,12 @@ foreach ($questions as $question):
     <?php endforeach; ?>
   </div>
 <?php endforeach; ?>
+<?php if (!empty($_SESSION['profanity_error'])): ?>
+<script>
+    alert('🚫 Your post contains inappropriate language. Please edit and try again.');
+</script>
+<?php unset($_SESSION['profanity_error']); endif; ?>
+
 
 <script>
 document.querySelectorAll(".like-form").forEach(form => {

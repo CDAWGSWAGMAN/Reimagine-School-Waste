@@ -26,7 +26,8 @@ $title = trim($_POST['title'] ?? '');
 $content = trim($_POST['content'] ?? '');
 
 if (contains_profanity($title) || contains_profanity($content)) {
-    echo "<script>alert('Your update contains inappropriate language. Please revise and try again.'); window.location.href='community.php';</script>";
+    $_SESSION['profanity_error'] = true;
+    header("Location: community.php");
     exit;
 }
 

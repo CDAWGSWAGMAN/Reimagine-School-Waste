@@ -1,14 +1,12 @@
 <?php
 session_start([
-    'cookie_lifetime' => 0, // expires on browser close
-    'cookie_httponly' => true, // JS can't access cookies
-    'cookie_secure' => isset($_SERVER['HTTPS']), // only send cookie over HTTPS
-    'use_strict_mode' => true, // reject uninitialized session IDs
-    'use_only_cookies' => true, // don't allow session ID in URL
+    'cookie_lifetime' => 0,
+    'cookie_httponly' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS']),
+    'use_strict_mode' => true,
+    'use_only_cookies' => true,
 ]);
 session_regenerate_id(true);
-
-require_once 'profanity_filter.php';
 
 // Security Headers
 header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:");
@@ -17,11 +15,14 @@ header("X-Content-Type-Options: nosniff");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
 header("Referrer-Policy: no-referrer");
 
+require_once 'profanity_filter.php';
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: signup.html");
     exit;
 }
 
+// CSRF Token Check
 if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     die("CSRF token validation failed.");
 }
@@ -29,12 +30,13 @@ if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_tok
 $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
 
 $user_id = $_SESSION['user_id'];
-$question_id = $_POST['question_id'];
-$response_text = trim($_POST['response_text']);
+$question_id = $_POST['question_id'] ?? '';
+$response_text = trim($_POST['response_text'] ?? '');
 
 // Profanity Check
 if (contains_profanity($response_text)) {
-    echo "<script>alert('Your response contains inappropriate language. Please revise and try again.'); window.location.href='community.php';</script>";
+    $_SESSION['profanity_error'] = true;
+    header("Location: community.php");
     exit;
 }
 
@@ -43,3 +45,4 @@ $stmt->execute([$question_id, $user_id, $response_text]);
 
 header("Location: community.php");
 exit;
+?>
