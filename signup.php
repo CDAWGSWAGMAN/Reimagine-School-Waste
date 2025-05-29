@@ -154,6 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signupForm');
