@@ -820,5 +820,58 @@ h5 {
   }
 }
 
-/* Hamburger menu for phones /*
+/* Hamburger menu for phones */
 
+ .login-container {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #aaa;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+
+        .login-container .signup-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .login-container .signup-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-container .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+  
