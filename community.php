@@ -30,10 +30,14 @@ $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root", [
   <link rel="stylesheet" href="styles.css" />
   <script src="app.js"></script>
   <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
     .user-greeting { margin-left: auto; padding-right: 20px; }
     .post-form, .question, .response {
       max-width: 600px; margin: 20px auto; padding: 20px;
       border-radius: 10px; background: #f5f5f5;
+    }
+    .question h3 {
+    color: #34495E;
     }
     .question img { max-width: 100%; height: auto; margin-top: 10px; }
     .response-form { margin-top: 10px; }

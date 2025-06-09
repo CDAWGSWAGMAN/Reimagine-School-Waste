@@ -9,7 +9,7 @@ session_start([
 ]);
 
 // Security headers
-header("Content-Security-Policy: default-src 'self'; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';");
+header("Content-Security-Policy: default-src 'self'; img-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';");
 header("X-Frame-Options: SAMEORIGIN");
 header("Referrer-Policy: no-referrer");
 header("X-Content-Type-Options: nosniff");
@@ -68,11 +68,13 @@ $user = $stmt->fetch();
   <title>Profile Settings</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
-    body {
-      font-family: Arial, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+
+      body {
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
     }
 
     .user-greeting {
@@ -80,17 +82,9 @@ $user = $stmt->fetch();
       align-items: center;
       gap: 15px;
       margin-left: auto;
-      font-weight: bold;
     }
 
-    .logout-btn {
-      padding: 6px 12px;
-      background-color: #d9534f;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+    .logout-btn {padding: 6px 12px; background-color: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; }
 
     .profile-form {
       max-width: 500px;
@@ -122,7 +116,7 @@ $user = $stmt->fetch();
       color: #3c763d;
       border: 1px solid #d6e9c6;
       border-radius: 6px;
-      font-weight: bold;
+      
       text-align: center;
     }
 
@@ -134,7 +128,7 @@ $user = $stmt->fetch();
       color: #721c24;
       border: 1px solid #f5c6cb;
       border-radius: 6px;
-      font-weight: bold;
+      
       text-align: center;
     }
   </style>
