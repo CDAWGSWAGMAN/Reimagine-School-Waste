@@ -1,4 +1,5 @@
 <?php
+// Secure session config
 session_start([
   'cookie_lifetime' => 0, // expires on browser close
   'cookie_httponly' => true, // JS can't access cookies
@@ -7,35 +8,52 @@ session_start([
   'use_only_cookies' => true, // don't allow session ID in URL
 ]);
 
+// Security headers
+header("Content-Security-Policy: default-src 'self'; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';");
+header("X-Frame-Options: SAMEORIGIN");
+header("Referrer-Policy: no-referrer");
+header("X-Content-Type-Options: nosniff");
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: signup.html");
     exit;
 }
 
 $pdo = new PDO("mysql:host=localhost;dbname=LOOL", "root", "root");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $user_id = $_SESSION['user_id'];
 
 $error = null;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
+// CSRF token generation
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
-    if (!empty($username) && !empty($email)) {
-        if (!empty($password)) {
-            $password_hash = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $pdo->prepare("UPDATE Users SET username = ?, email = ?, password_hash = ? WHERE user_id = ?");
-            $stmt->execute([$username, $email, $password_hash, $user_id]);
-        } else {
-            $stmt = $pdo->prepare("UPDATE Users SET username = ?, email = ? WHERE user_id = ?");
-            $stmt->execute([$username, $email, $user_id]);
-        }
-        $_SESSION['username'] = $username;
-        header("Location: profile.php?success=1");
-        exit;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // CSRF token validation
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        $error = "Invalid CSRF token.";
     } else {
-        $error = "Username and email are required.";
+        $username = trim($_POST['username']);
+        $email = trim($_POST['email']);
+        $password = $_POST['password'];
+
+        if (!empty($username) && !empty($email)) {
+            if (!empty($password)) {
+                $password_hash = password_hash($password, PASSWORD_BCRYPT);
+                $stmt = $pdo->prepare("UPDATE Users SET username = ?, email = ?, password_hash = ? WHERE user_id = ?");
+                $stmt->execute([$username, $email, $password_hash, $user_id]);
+            } else {
+                $stmt = $pdo->prepare("UPDATE Users SET username = ?, email = ? WHERE user_id = ?");
+                $stmt->execute([$username, $email, $user_id]);
+            }
+            $_SESSION['username'] = $username;
+            header("Location: profile.php?success=1");
+            exit;
+        } else {
+            $error = "Username and email are required.";
+        }
     }
 }
 
@@ -43,7 +61,6 @@ $stmt = $pdo->prepare("SELECT username, email FROM Users WHERE user_id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +68,7 @@ $user = $stmt->fetch();
   <title>Profile Settings</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -132,7 +150,6 @@ $user = $stmt->fetch();
     <li><a href="tool_kit.html">Resources</a></li>
     <li><a href="How_to.html">Getting Started</a></li>
     <li><a href="data.html">Data</a></li>
-    
     <li><a href="community.php">Community Forms</a></li>
   </ul>
   <div class="user-greeting">
@@ -148,17 +165,16 @@ $user = $stmt->fetch();
 <?php endif; ?>
 
 <?php if (!empty($error)): ?>
-  <div class="alert-error">⚠️ <?php echo $error; ?></div>
+  <div class="alert-error">⚠️ <?php echo htmlspecialchars($error); ?></div>
 <?php endif; ?>
-<br>
-<br><br>
-  <br>
-  <br>
-  
+
+<br><br><br><br><br>
+
 <div class="profile-form">
-  
   <h2>Edit Your Profile</h2>
   <form method="POST">
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+    
     <label>Username:</label>
     <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
@@ -171,6 +187,7 @@ $user = $stmt->fetch();
     <button type="submit">Save Changes</button>
   </form>
 </div>
+
 <!-- Fetch and display user’s posts -->
 <?php
 $stmt = $pdo->prepare("SELECT * FROM Questions WHERE user_id = ? ORDER BY created_at DESC");
@@ -190,11 +207,12 @@ $user_questions = $stmt->fetchAll();
         <p style="font-size:14px;"><?php echo nl2br(htmlspecialchars($q['content'])); ?></p>
         <small style="color:gray;">Posted on <?php echo date("F j, Y", strtotime($q['created_at'])); ?></small>
         <form action="edit_question.php" method="GET" style="display:inline;">
-          <input type="hidden" name="question_id" value="<?php echo $q['question_id']; ?>">
+          <input type="hidden" name="question_id" value="<?php echo (int)$q['question_id']; ?>">
           <button style="margin-right:8px;">Edit</button>
         </form>
         <form action="delete_question.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline;">
-          <input type="hidden" name="question_id" value="<?php echo $q['question_id']; ?>">
+          <input type="hidden" name="question_id" value="<?php echo (int)$q['question_id']; ?>">
+          <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
           <button style="background:#d9534f; color:white;">Delete</button>
         </form>
       </div>

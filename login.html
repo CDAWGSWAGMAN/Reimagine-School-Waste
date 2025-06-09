@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login - Lunch Out of Landfills</title>
@@ -29,106 +30,157 @@
             <a href="login.html" class="button">Login</a>
         </div>
     </nav>
+=======
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Lunch Out of Landfills</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+    .login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 30px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background-color: #f9f9f9;
+      font-family: 'Poppins', sans-serif;
+    }
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .login-container input,
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+    }
+    .login-container button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background-color: #45a049;
+    }
+    .login-container .signup-link {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .login-container .signup-link a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="images/LOOL.png" alt="LOOL Logo" onclick="window.location.href='index.html';">
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="tool_kit.html">Resources</a></li>
+    <li><a href="How_to.html">Getting Started</a></li>
+    <li><a href="data.html">Data</a></li>
+    <li><a href="Community.html">Community Forms</a></li>
+  </ul>
+  <div class="auth-buttons">
+    <a href="signup.php" class="button">Sign Up</a>
+  </div>
+</nav>
+ security
 
 <div class="login-container">
-    <h2>Log In</h2>
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" maxlength="100" required>
+  <h2>Log In</h2>
+  <form id="loginForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" maxlength="100" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
 
-        <button type="submit">Login</button>
-    </form>
-    <div class="signup-link">
-        <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
-    </div>
+    <button type="submit">Login</button>
+  </form>
+  <div class="signup-link">
+    <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
+  </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const loginForm = document.getElementById("loginForm");
-    
-        if (loginForm) {
-            loginForm.addEventListener("submit", async function (e) {
-                e.preventDefault();
-    
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
-    
-                try {
-                    const response = await fetch("login.php", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ email, password }),
-                    });
-    
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-    
-                    const result = await response.json();
-                    console.log("Server response:", result);
-    
-                    if (result.success) {
-                        window.location.href = "community.php";
-                    } else {
-                        alert(result.message || "Login failed. Please try again.");
-                    }
-                } catch (err) {
-                    console.error("Login error:", err);
-                    alert("Something went wrong during login.");
-                }
-            });
-        } else {
-            console.warn("Login form not found on this page.");
-        }
-    });
-    </script>
-    
-<script src="app.js"></script>
-
 <footer>
-    <div class="footer-container">
+      <div class="footer-container">
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <p>We are committed to helping people begin food recovery efforts. Our team helps assist in starting the process in your area.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="tool_kit.html">Resources</a></li>
-                    <li><a href="How_to.html">Getting Started</a></li>
-                    <li><a href="data.html">Data</a></li>
-                    
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Information</h3>
-                <p><strong>Email:</strong> <a href="mailto:joesr@bar-t.com">joesr@bar-t.com</a></p>
-                <p><strong>Phone:</strong> +1 (301) 674-7266</p>
-                <p><strong>Address:</strong> 2914 Roderick Rd, Frederick, MD, 21704</p>
-            </div>
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <ul class="social-media">
-                    <li><a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="https://www.linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-                </ul>
-            </div>
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>We are committed to helping people begin food recovery efforts. Our team helps assist in starting the process in your area.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="tool_kit.html">Resources</a></li>
+              <li><a href="How_to.html">Getting Started</a></li>
+              
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Information</h3>
+            <p><strong>Email:</strong> <a href="mailto:joesr@bar-t.com">joesr@bar-t.com</a></p>
+            <p><strong>Phone:</strong> +1 (301) 674-7266</p>
+            <p><strong>Address:</strong> 2914 Roderick Rd, Frederick, MD, 21704</p>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul class="social-media">
+              <li><a href="https://www.facebook.com/yourpage" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a></li>
+              <li><a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+              <li><a href="https://www.instagram.com/yourprofile" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+          </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Lunch Out Of Landfills. All rights reserved.</p>
+          <p>&copy; 2025 Lunch Out Of Landfills. All rights reserved.</p>
         </div>
-    </div>
-</footer>
+      </div>
+    </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const response = await fetch("login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        window.location.href = "community.php";
+      } else {
+        alert(result.error || "Login failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Something went wrong during login.");
+    }
+  });
+});
+</script>
 
 </body>
 </html>
