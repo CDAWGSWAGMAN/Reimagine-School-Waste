@@ -2,39 +2,59 @@
 <html> 
     <head>
         <title>Lunch Out of Landfills - Home</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
         <link rel="stylesheet" href="styles.css" />
         <style>
              @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
         </style>
     </head>
     <body>
-      <nav>
-        <div class="logo">
-          <img src="images/LOOL.png" alt="LOOL Logo" onclick="window.location.href='index.html';">
-        </div>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="tool_kit.html">Resources</a></li>
-          <li><a href="How_to.html">Getting Started</a></li>
-          <li><a href="data.html">Data</a></li>
-          <li><a href="Contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
+        <nav>
+            <div class="logo">
+              <img src="images/LOOL.png" alt="LOOL Logo" onclick="window.location.href='index.html';">
+            </div>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="tool_kit.html">Resources</a></li>
+              <li><a href="How_to.html">Getting Started</a></li>
+              <li><a href="data.html">Data</a></li>
+              
+              <li><a href="Community.html">Community Forms</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="signup.php" class="button">Sign Up</a>
+                <a href="login.html" class="button">Login</a>
+            </div>
+        </nav>
     <br>
-    <h1>Community Members</h1>
-            <h2><ol>
-            <li>Identify a local school cluster.  Elementary School produce the most waste,  High School and Middle School students can serve as mentors and get service learning hours or an internship. If you have a child attending the school that is the best place to start. Meet with the PTAS in the school.</li>
-            <li>Reach out to the principal and ask if you could visit during a lunch period and see if the school has a share table and recycles.  Many schools do not. If the school has a share table do they chill the perishables.  </li>
-            <li>Does the High School or lower school have a green team or environmental club.  That club leader is your staff liaison and will welcome the environmental solutions you present. No Green team? Ask the principal if there is a staff member who would be interested.</li>
-            <li>Involve Building services.  They may be reluctant if it means more work for them. Assure them that students will run the program and monitor the refrigerator.</li>
-            <li>Organize a food collection system for Friday pick up to a local food bank or church food rescue.  We have found that most of the food is taken by students but the fridge must be emptied and cleaned each Friday. </li>
-            <li>Once the start date has been established and the refrigerator delivered roll out the program with fanfare.  Have students make posters and have morning announcements made letting student know not to throw away recoverable food.  (Prepackaged and unopened milk, yogurt, fruit and packaged vegetables). Food prepared at home cannot be shared.</li>
-            <li>Volunteer at the school at the start of the program and check in periodically with the green team to ensure the program is working.</li>
-            <li>Volunteer to take food to the food bank or set us a system for Friday collection</li>
-            <li>Connect with the local Rotary Club and an Edward Jones Consultant.  We can help you reach out to them.</li>
+    <main class="community-section">
+        <h1><i class="fas fa-people-group"></i> Community Members</h1>
+        <p>Your support can drive change in your local schools. Follow these steps to get involved:</p>
+      
+        <h2>
+            <ol class="action-list">
+              <li><i class="fas fa-school"></i> Identify a local school cluster. Elementary schools produce the most waste; high school and middle school students can serve as mentors and earn service hours or internships.</li>
+              <li><i class="fas fa-binoculars"></i> Visit during lunch. Does the school have a share table or recycling program? Are perishables like milk kept chilled?</li>
+              <li><i class="fas fa-leaf"></i> Look for a green team or environmental club. If none exists, ask the principal if a staff member might be interested in starting one.</li>
+              <li><i class="fas fa-broom"></i> Connect with building services. Let them know students will monitor the fridge—reducing their workload.</li>
+              <li><i class="fas fa-hands-helping"></i> Set up a food collection system for Friday pickups to a food bank or church. Fridges must be cleaned weekly.</li>
+              <li><i class="fas fa-bullhorn"></i> Roll out the program with posters and announcements. Make sure students know what food can be recovered.</li>
+              <li><i class="fas fa-user-check"></i> Volunteer at the start and periodically check in with the green team to ensure things run smoothly.</li>
+              <li><i class="fas fa-truck-loading"></i> Help transport food to donation sites or coordinate a Friday pickup system.</li>
+              <li><i class="fas fa-handshake"></i> Connect with local Rotary Clubs and Edward Jones consultants. We can help you make those connections!</li>
+            </ol>
+          </h2>
+          
+          <hr style="border: none; height: 2px; background-color: #e0f2e9; margin: 2rem 0;">
+        <div class="cta-center">
+          <a href="Contact.html" class="green-button"> Reach Out for Support</a>
+        </div>
+      </main>
+      
+      
 
-        </ol></h2>
-
+      <button onclick="history.back()" class="back-button"><i class="fas fa-arrow-left"></i> Back</button>
 
 
           <script src="app.js"></script>

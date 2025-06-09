@@ -48,3 +48,5 @@ window.addEventListener('scroll', function() {
     nav.classList.remove('shrink'); // Remove class to restore original navbar size
   }
 });
+
+
