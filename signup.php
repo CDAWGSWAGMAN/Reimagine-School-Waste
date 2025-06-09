@@ -9,7 +9,7 @@ session_start([
 session_regenerate_id(true);
 
 // Security Headers
-header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';");
 header("X-Frame-Options: SAMEORIGIN");
 header("X-Content-Type-Options: nosniff");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
@@ -169,7 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await res.json();
                 if (result.success) {
                     alert('Account created successfully!');
-                    window.location.href = result.redirect || 'login.html';
+                    setTimeout(() => {
+                        window.location.href = result.redirect || 'login.html';
+                    }, 100); // Small delay so alert is visible
                 } else {
                     alert(result.error || 'Signup failed.');
                 }
@@ -181,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
 
 <script src="app.js"></script>
 </body>

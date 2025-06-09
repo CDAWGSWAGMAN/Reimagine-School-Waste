@@ -45,7 +45,7 @@ function contains_profanity($text): bool{
 
         // Obfuscated words
         'f.u.c.k', 'd.i.c.k', 'b.i.t.c.h', 'c.u.n.t', 'p.u.s.s.y', 'n.u.d.e',
-        's.h.i.t', 'f.u.k', 'f.u.q', 'b.i.t.t.c.h', 'c.u.n.t', 'p.u.s.s.y','Ski'
+        's.h.i.t', 'f.u.k', 'f.u.q', 'b.i.t.t.c.h', 'c.u.n.t', 'p.u.s.s.y','Ski',
 
         // Emojis that imply offensive meanings
         '💦', '😘', '🍑', '🍆', '👅', '😩', '👙', '💋', '🔥', '😈',
